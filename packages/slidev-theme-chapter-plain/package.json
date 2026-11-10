@@ -1,0 +1,48 @@
+{
+  "name": "slidev-theme-chapter-plain",
+  "version": "0.1.0",
+  "description": "Plain Concepts theme for Slidev",
+  "keywords": [
+    "slidev",
+    "slidev-theme"
+  ],
+  "homepage": "https://github.com/PlainConceptsChapters/chapter-slidev-theme",
+  "license": "MIT",
+  "author": "Plain Concepts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PlainConceptsChapters/chapter-slidev-theme",
+    "directory": "packages/slidev-theme-chapter-plain"
+  },
+  "scripts": {
+    "format": "oxfmt --write",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "@slidev/types": "^52.11.3",
+    "@vueuse/motion": "^3.0.3"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.25.0",
+    "oxlint": "^1.40.0"
+  },
+  "peerDependencies": {
+    "@slidev/client": ">=0.47.0",
+    "vue": ">=3.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=0.47.0"
+  },
+  "slidev": {
+    "defaults": {
+      "fonts": {
+        "sans": "Open Sans",
+        "serif": "Open Sans",
+        "mono": "IBM Plex Mono",
+        "italic": true,
+        "weights": "300,400,500,600,700"
+      }
+    }
+  }
+}
