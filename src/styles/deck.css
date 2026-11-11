@@ -1,0 +1,384 @@
+/* Deck engine chrome: the scaled sheet, the controls, overview, presenter and print modes. --lh- roles only. */
+
+body.deck-body {
+  min-height: 100vh;
+  background-color: var(--lh-canvas);
+  background-image: none;
+  overflow: hidden;
+}
+
+html[data-mode='presenter'] body.deck-body,
+html[data-mode='print'] body.deck-body {
+  overflow: auto;
+}
+
+main.viewport {
+  position: fixed;
+  inset: 0;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.fit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 980px;
+  height: 552px;
+  transform-origin: 0 0;
+}
+
+/* The sheet: the site's blueprint grid on the canvas, a thin frame, mono labels at the edges. */
+.sheet {
+  --grid-line: color-mix(in srgb, var(--lh-border-strong) 14%, transparent);
+  position: relative;
+  width: 980px;
+  height: 552px;
+  overflow: hidden;
+  background-color: var(--lh-canvas);
+  background-image:
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+  color: var(--lh-text);
+  font-family: var(--lh-font-sans);
+  view-transition-name: sheet;
+}
+
+.sheet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--lh-action);
+}
+
+.sheet-top,
+.sheet-foot {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+  color: var(--lh-text-muted);
+  font: 500 10px var(--lh-font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sheet-top {
+  top: 16px;
+}
+
+.sheet-course {
+  color: var(--lh-action);
+}
+
+.sheet-foot {
+  bottom: 14px;
+}
+
+.sheet-number {
+  color: var(--lh-text);
+}
+
+html[data-mode='embed'] .deck-bar {
+  display: none;
+}
+
+/* Controls: hidden until the pointer moves or they take focus. */
+.deck-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  transform: translateX(-50%);
+  border: 1px solid var(--lh-border-strong);
+  background: var(--lh-surface);
+  font: 500 var(--lh-text-small) var(--lh-font-mono);
+  opacity: 0;
+  transition: opacity var(--lh-motion-fast);
+}
+
+.viewport[data-chrome] .deck-bar,
+.deck-bar:focus-within {
+  opacity: 1;
+}
+
+.deck-bar a,
+.deck-bar > button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 var(--lh-space-2);
+  border: 0;
+  background: transparent;
+  color: var(--lh-text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.deck-bar a:hover,
+.deck-bar > button:hover {
+  background: var(--lh-action-soft);
+  color: var(--lh-action);
+}
+
+.deck-home {
+  white-space: nowrap;
+  border-right: 1px solid var(--lh-border) !important;
+  color: var(--lh-action) !important;
+}
+
+.deck-count {
+  min-width: 4.5rem;
+  text-align: center;
+  color: var(--lh-text-muted);
+}
+
+.deck-bar .theme-switch {
+  margin-left: var(--lh-space-1);
+}
+
+.blackout {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  background: #000;
+}
+
+/* Overview: every slide of the module as a numbered row. */
+.overview {
+  width: min(56rem, calc(100% - 2rem));
+  max-height: calc(100% - 4rem);
+  padding: 0;
+  border: 1px solid var(--lh-border-strong);
+  background: var(--lh-surface);
+  color: var(--lh-text);
+  box-shadow: var(--lh-shadow-overlay);
+}
+
+.overview::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.overview header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lh-space-4);
+  padding: var(--lh-space-4) var(--lh-space-6);
+  border-bottom: 1px solid var(--lh-border-strong);
+  background: var(--lh-surface);
+}
+
+.overview h2 {
+  margin: 0;
+  font-size: var(--lh-text-large);
+}
+
+.overview ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.overview a {
+  display: grid;
+  grid-template-columns: 3rem 12rem minmax(0, 1fr);
+  gap: var(--lh-space-4);
+  padding: var(--lh-space-3) var(--lh-space-6);
+  border-bottom: 1px solid var(--lh-border);
+  color: var(--lh-text);
+  text-decoration: none;
+}
+
+.overview a:hover,
+.overview a[aria-current] {
+  background: linear-gradient(90deg, var(--lh-action) 0 3px, var(--lh-surface-muted) 3px);
+}
+
+.overview-number {
+  color: var(--lh-action);
+  font: 600 var(--lh-text-base) var(--lh-font-mono);
+}
+
+.overview-section {
+  color: var(--lh-text-muted);
+  font: 500 0.75rem var(--lh-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 40rem) {
+  .overview a {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .overview-section {
+    display: none;
+  }
+}
+
+/* Presenter window */
+main.presenter {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: var(--lh-space-4);
+  width: auto;
+  height: 100vh;
+  margin: 0;
+  padding: var(--lh-space-4);
+}
+
+.presenter header {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--lh-space-6);
+  padding-bottom: var(--lh-space-3);
+  border-bottom: 1px solid var(--lh-border-strong);
+  font-family: var(--lh-font-mono);
+}
+
+.p-slide {
+  flex: 1;
+}
+
+.p-timer {
+  color: var(--lh-action);
+  font: 700 1.75rem var(--lh-font-mono);
+}
+
+.p-current {
+  grid-row: 2 / 4;
+}
+
+.presenter iframe {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--lh-border-strong);
+  background: var(--lh-canvas);
+}
+
+.p-next {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-next iframe {
+  flex: 1;
+}
+
+.p-list {
+  overflow: auto;
+  border: 1px solid var(--lh-border);
+}
+
+.p-list ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.p-list button {
+  width: 100%;
+  padding: var(--lh-space-2) var(--lh-space-3);
+  border: 0;
+  border-bottom: 1px solid var(--lh-border);
+  background: transparent;
+  color: var(--lh-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.p-list button span {
+  color: var(--lh-action);
+  font-family: var(--lh-font-mono);
+}
+
+.p-list button[aria-current] {
+  background: linear-gradient(90deg, var(--lh-action) 0 3px, var(--lh-surface-muted) 3px);
+}
+
+.presenter footer {
+  grid-column: 1 / -1;
+  color: var(--lh-text-muted);
+  font: var(--lh-text-small) var(--lh-font-mono);
+}
+
+/* Print: one slide per page. */
+@page {
+  size: 980px 552px;
+  margin: 0;
+}
+
+main.print {
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+main.print .page {
+  width: 980px;
+  height: 552px;
+  break-after: page;
+}
+
+@media print {
+  .deck-bar {
+    display: none;
+  }
+}
+
+.deck-error {
+  padding: var(--lh-space-12) var(--lh-space-6);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Phones: keep navigation, drop presenter, full screen and appearance from the bar. */
+@media (max-width: 40rem) {
+  .deck-bar {
+    bottom: 8px;
+    max-width: calc(100% - 16px);
+  }
+
+  .deck-bar > button[aria-label^='Presenter'],
+  .deck-bar > button[aria-label^='Full screen'],
+  .deck-bar .theme-switch {
+    display: none;
+  }
+
+  .deck-count {
+    min-width: 3.5rem;
+  }
+}
