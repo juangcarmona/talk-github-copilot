@@ -1,0 +1,154 @@
+{
+  "title": "GitHub Copilot: from zero to hero",
+  "intro": "A practical course that takes you from your first Copilot suggestion to running AI-assisted engineering across a team. It focuses on real engineering workflows rather than feature lists: how Copilot works, how to steer it, how to validate what it produces, and how to scale it with instructions, agents, MCP and specs.",
+  "levels": [
+    {
+      "id": "0",
+      "name": "Start here",
+      "summary": "How the course works, how Copilot is changing engineering work, and the rules for using it well."
+    },
+    {
+      "id": "100",
+      "name": "Foundations",
+      "summary": "Individual productivity: how Copilot works, how to prompt it and how to check its output."
+    },
+    {
+      "id": "200",
+      "name": "Team practice",
+      "summary": "Shaping Copilot for a team: instructions, agents and repositories that AI can work with."
+    },
+    {
+      "id": "300",
+      "name": "Scale",
+      "summary": "Orchestration and delivery at scale: MCP, spec-driven development and the AI-SDLC operating model."
+    }
+  ],
+  "modules": [
+    {
+      "id": "000",
+      "level": "0",
+      "deck": "slides/copilot-000.md",
+      "title": "Workshop Orientation",
+      "covers": "Workshop map, agentic shift, workflow economics, and rules.",
+      "audience": "All",
+      "time": "20-30 min"
+    },
+    {
+      "id": "101",
+      "level": "100",
+      "deck": "slides/copilot-101.md",
+      "title": "Using Copilot Effectively",
+      "covers": "What Copilot is, how it works, chat/autocomplete, limits and trust.",
+      "audience": "Beginners",
+      "time": "60-90 min",
+      "lab": "https://github.com/juangcarmona/github_copilot_101_copilot_basics"
+    },
+    {
+      "id": "102",
+      "level": "100",
+      "deck": "slides/copilot-102.md",
+      "title": "Prompt Engineering",
+      "covers": "Context control, prompt precision, few-shot patterns, iterative refinement.",
+      "audience": "Beginner-intermediate",
+      "time": "45-75 min",
+      "lab": "https://github.com/juangcarmona/github_copilot_102_prompting"
+    },
+    {
+      "id": "103",
+      "level": "100",
+      "deck": "slides/copilot-103.md",
+      "title": "Engineering Workflows with AI",
+      "covers": "Testing, review, validation, and security checks.",
+      "audience": "Engineers",
+      "time": "45-60 min",
+      "lab": "https://github.com/juangcarmona/github_copilot_103_validation_testing_prs"
+    },
+    {
+      "id": "201",
+      "level": "200",
+      "deck": "slides/copilot-201.md",
+      "title": "Custom Instructions",
+      "covers": "Custom instructions, hierarchy, conflicts, and governance.",
+      "audience": "Teams and tech leads",
+      "time": "45-60 min"
+    },
+    {
+      "id": "202",
+      "level": "200",
+      "deck": "slides/copilot-202.md",
+      "title": "Agents & Workflow Automation",
+      "covers": "Ask vs agent mode, autonomy, approvals, and workflow automation.",
+      "audience": "Intermediate-advanced",
+      "time": "60-90 min"
+    },
+    {
+      "id": "203",
+      "level": "200",
+      "deck": "slides/copilot-203.md",
+      "title": "AI-Ready Repositories",
+      "covers": "Structure, naming, discoverability, indexing, and repo maturity.",
+      "audience": "Maintainers and architects",
+      "time": "45-75 min"
+    },
+    {
+      "id": "301",
+      "level": "300",
+      "deck": "slides/copilot-301.md",
+      "title": "MCP & Orchestration",
+      "covers": "Tools, integrations, trust boundaries, and secure usage.",
+      "audience": "Advanced users",
+      "time": "60-90 min"
+    },
+    {
+      "id": "302",
+      "level": "300",
+      "deck": "slides/copilot-302.md",
+      "title": "Spec-Driven Development",
+      "covers": "Spec-first planning, implementation flow, drift prevention.",
+      "audience": "Leads and delivery teams",
+      "time": "45-75 min"
+    },
+    {
+      "id": "303",
+      "level": "300",
+      "deck": "slides/copilot-303.md",
+      "title": "AI in the Software Development Lifecycle",
+      "covers": "Maturity model, governance, metrics, and operating model at scale.",
+      "audience": "Managers, architects, tech leads",
+      "time": "45-60 min"
+    }
+  ],
+  "certification": {
+    "title": "GitHub Copilot certification",
+    "text": "Finish the course by validating what you learned with the official GitHub Copilot certification exam.",
+    "url": "https://learn.microsoft.com/en-us/credentials/certifications/github-copilot"
+  },
+  "author": {
+    "name": "Juan G. Carmona",
+    "headline": "Software Architect · AI Strategist · Critical & Secure Systems",
+    "description": "Software architect with more than twenty years building critical and secure systems. Articles, talks and open source on architecture and AI-assisted engineering.",
+    "site": "https://jgcarmona.com",
+    "profiles": [
+      {
+        "name": "jgcarmona.com",
+        "url": "https://jgcarmona.com"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/juangcarmona"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/juangcarmona"
+      },
+      {
+        "name": "YouTube",
+        "url": "https://www.youtube.com/@juangcarmona"
+      },
+      {
+        "name": "Sessionize",
+        "url": "https://sessionize.com/juangcarmona"
+      }
+    ]
+  }
+}
